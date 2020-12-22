@@ -170,6 +170,9 @@ class Index extends \Magento\Framework\App\Action\Action implements CsrfAwareAct
                     'dynamic_callback_url' => $orderParams['dynamic_callback_url'],
                     'promo_bin' => $orderParams['promo_bin'],
                 );
+                if (!empty($_COOKIE['PHPSESSID'])) {
+                    header('Set-Cookie: PHPSESSID' . '=' . $_COOKIE['PHPSESSID'] . '; SameSite=None; Secure');
+                }
             } catch (\Exception $e) {
                 $this->messageManager->addError($e->getMessage());
                 $url_checkoutredirection = 'checkout/cart';
